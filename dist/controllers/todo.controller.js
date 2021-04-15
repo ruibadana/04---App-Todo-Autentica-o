@@ -15,12 +15,6 @@ const repositories_1 = require("../repositories");
 const authentication_1 = require("@loopback/authentication");
 // ------------------------------------
 let TodoController = class TodoController {
-};
-TodoController = tslib_1.__decorate([
-    authentication_1.authenticate('jwt') // <---- Apply the @authenticate decorator at the class level
-], TodoController);
-exports.TodoController = TodoController;
-let TodoController = class TodoController {
     constructor(todoRepository, geoService) {
         this.todoRepository = todoRepository;
         this.geoService = geoService;
@@ -210,6 +204,8 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:returntype", Promise)
 ], TodoController.prototype, "updateAll", null);
 TodoController = tslib_1.__decorate([
+    authentication_1.authenticate('jwt') // <---- Apply the @authenticate decorator at the class level
+    ,
     tslib_1.__param(0, repository_1.repository(repositories_1.TodoRepository)),
     tslib_1.__param(1, core_1.inject('services.Geocoder')),
     tslib_1.__metadata("design:paramtypes", [repositories_1.TodoRepository, Object])

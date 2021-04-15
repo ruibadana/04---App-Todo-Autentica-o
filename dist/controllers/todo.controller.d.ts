@@ -3,8 +3,6 @@ import { Todo } from '../models';
 import { TodoRepository } from '../repositories';
 import { Geocoder } from '../services';
 export declare class TodoController {
-}
-export declare class TodoController {
     todoRepository: TodoRepository;
     protected geoService: Geocoder;
     constructor(todoRepository: TodoRepository, geoService: Geocoder);
