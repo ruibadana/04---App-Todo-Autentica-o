@@ -3,20 +3,29 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {BootMixin} from '@loopback/boot';
-import {ApplicationConfig} from '@loopback/core';
-import {RepositoryMixin} from '@loopback/repository';
-import {Request, Response, RestApplication} from '@loopback/rest';
+import { BootMixin } from '@loopback/boot';
+import { ApplicationConfig } from '@loopback/core';
+import { RepositoryMixin } from '@loopback/repository';
+import { Request, Response, RestApplication } from '@loopback/rest';
 import {
   RestExplorerBindings,
   RestExplorerComponent,
 } from '@loopback/rest-explorer';
-import {ServiceMixin} from '@loopback/service-proxy';
+import { ServiceMixin } from '@loopback/service-proxy';
 import morgan from 'morgan';
 import path from 'path';
-import {MySequence} from './sequence';
+import { MySequence } from './sequence';
 
-export {ApplicationConfig};
+// ---------- ADD IMPORTS -------------
+import { AuthenticationComponent } from '@loopback/authentication';
+import {
+  JWTAuthenticationComponent,
+  SECURITY_SCHEME_SPEC,
+  UserServiceBindings,
+} from '@loopback/authentication-jwt';
+import { DbDataSource } from './datasources';
+
+export { ApplicationConfig };
 
 export class TodoListApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
@@ -37,7 +46,14 @@ export class TodoListApplication extends BootMixin(
     this.component(RestExplorerComponent);
 
     this.projectRoot = __dirname;
+    // Mount authentication system
+    this.component(AuthenticationComponent);
+    // Mount jwt component
+    this.component(JWTAuthenticationComponent);
+    // Bind datasource
+    this.dataSource(DbDataSource, UserServiceBindings.DATASOURCE_NAME);
     // Customize @loopback/boot Booter Conventions here
+
     this.bootOptions = {
       controllers: {
         // Customize ControllerBooter Conventions here
@@ -45,6 +61,7 @@ export class TodoListApplication extends BootMixin(
         extensions: ['.controller.js'],
         nested: true,
       },
+
     };
 
     this.setupLogging();
