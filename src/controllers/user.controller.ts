@@ -4,8 +4,17 @@
 
 
 export class UserController {
-  constructor() { }
+  constructor(
+    @inject(TokenServiceBindings.TOKEN_SERVICE)
+    public jwtService: TokenService,
+    @inject(UserServiceBindings.USER_SERVICE)
+    public userService: MyUserService,
+    @inject(SecurityBindings.USER, { optional: true })
+    public user: UserProfile,
+    @repository(UserRepository) protected userRepository: UserRepository,
+  ) { }
 }
+
 // ---------- ADD IMPORTS -------------
 import { inject } from '@loopback/core';
 import {
@@ -19,12 +28,4 @@ import { SecurityBindings, UserProfile } from '@loopback/security';
 import { repository } from '@loopback/repository';
 // ----------------------------------
 
-constructor(
-    @inject(TokenServiceBindings.TOKEN_SERVICE)
-public jwtService: TokenService,
-    @inject(UserServiceBindings.USER_SERVICE)
-public userService: MyUserService,
-    @inject(SecurityBindings.USER, { optional: true })
-public user: UserProfile,
-    @repository(UserRepository) protected userRepository: UserRepository,
-  ) { }
+
