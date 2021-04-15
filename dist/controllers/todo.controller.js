@@ -11,6 +11,15 @@ const repository_1 = require("@loopback/repository");
 const rest_1 = require("@loopback/rest");
 const models_1 = require("../models");
 const repositories_1 = require("../repositories");
+// ---------- ADD IMPORTS -------------
+const authentication_1 = require("@loopback/authentication");
+// ------------------------------------
+let TodoController = class TodoController {
+};
+TodoController = tslib_1.__decorate([
+    authentication_1.authenticate('jwt') // <---- Apply the @authenticate decorator at the class level
+], TodoController);
+exports.TodoController = TodoController;
 let TodoController = class TodoController {
     constructor(todoRepository, geoService) {
         this.todoRepository = todoRepository;
