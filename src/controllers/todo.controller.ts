@@ -32,9 +32,6 @@ import { Geocoder } from '../services';
 import { authenticate } from '@loopback/authentication';
 // ------------------------------------
 @authenticate('jwt') // <---- Apply the @authenticate decorator at the class level
-export class TodoController {
-  //...
-}
 
 
 export class TodoController {
