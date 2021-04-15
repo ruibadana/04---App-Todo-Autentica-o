@@ -4,6 +4,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const tslib_1 = require("tslib");
 // import {inject} from '@loopback/core';
+// ---------- ADD IMPORTS -------------
+const core_1 = require("@loopback/core");
+const authentication_jwt_1 = require("@loopback/authentication-jwt");
+const security_1 = require("@loopback/security");
+const repository_1 = require("@loopback/repository");
+// ----------------------------------
 let UserController = class UserController {
     constructor(jwtService, userService, user, userRepository) {
         this.jwtService = jwtService;
@@ -20,10 +26,4 @@ UserController = tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [Object, authentication_jwt_1.MyUserService, Object, authentication_jwt_1.UserRepository])
 ], UserController);
 exports.UserController = UserController;
-// ---------- ADD IMPORTS -------------
-const core_1 = require("@loopback/core");
-const authentication_jwt_1 = require("@loopback/authentication-jwt");
-const security_1 = require("@loopback/security");
-const repository_1 = require("@loopback/repository");
-// ----------------------------------
 //# sourceMappingURL=user.controller.js.map
